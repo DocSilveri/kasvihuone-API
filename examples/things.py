@@ -12,6 +12,7 @@ import falcon
 class ThingsResource:
     def on_get(self, req, resp):
         """Handles GET requests"""
+        resp.set_header("Access-Control-Allow-Origin", "*")
         resp.status = falcon.HTTP_200  # This is the default status
         # resp.content_type = falcon.MEDIA_TEXT  # Default is JSON, so override
         resp.media = {
