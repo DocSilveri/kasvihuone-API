@@ -42,6 +42,10 @@ class GPIOControl:
             except Exception as e:
                 print(e)
                 resp.text = "Command not recognized"
+                
+        resp.set_header("Access-Control-Allow-Origin", "*")
+        resp.set_header("Access-Control-Allow-Methods", "POST, OPTIONS")
+        resp.set_header("Access-Control-Allow-Headers", "Content-Type")
         
 
 # Create a separate thread for GPIO logic
