@@ -25,6 +25,7 @@ def gpio_thread():
 # Falcon API
 class GPIOControl:
     def on_post(self, req, resp):
+        print("Post request received")
         data = req.media
         
         if data['command']:
@@ -48,6 +49,7 @@ class GPIOControl:
         resp.set_header("Access-Control-Allow-Headers", "Content-Type")
         
     def on_options(self, req, resp):
+        print("Options request received")
         resp.set_header("Access-Control-Allow-Origin", "*")
         resp.set_header("Access-Control-Allow-Methods", "POST, OPTIONS")
         resp.set_header("Access-Control-Allow-Headers", "Content-Type")
