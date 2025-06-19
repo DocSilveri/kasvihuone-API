@@ -56,4 +56,5 @@ app.add_route('/API', GPIOControl())
 if __name__ == '__main__':
     from wsgiref import simple_server
     with simple_server.make_server('', 8000, app) as httpd:
+        print('Serving on port 8000...')
         httpd.serve_forever()
