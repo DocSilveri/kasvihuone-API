@@ -61,7 +61,7 @@ gpio_thread.start()
 
 # Create the Falcon app
 app = falcon.App()
-app.add_route('/API', GPIOControl())
+app.add_route('/API', GPIOControl(), methods=['POST', 'OPTIONS'])
 
 # Run the Falcon app
 if __name__ == '__main__':
