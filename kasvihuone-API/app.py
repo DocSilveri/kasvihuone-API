@@ -1,4 +1,5 @@
 import falcon
+from falcon_cors import CORS
 #import RPi.GPIO as GPIO
 import gpiozero
 import threading
@@ -8,6 +9,8 @@ from queue import Queue
 gpio_queue = Queue()
 
 led = gpiozero.LED(4)
+cors = CORS(allow_all_origins=True, allow_all_methods=True, allow_all_headers=True)
+
 
 # GPIO logic
 def gpio_thread():
@@ -62,7 +65,7 @@ gpio_thread.daemon = True  # So that the thread dies when the main thread dies
 gpio_thread.start()
 
 # Create the Falcon app
-app = falcon.App()
+app = falcon.App(middleware=[cors])
 app.add_route('/API', GPIOControl(), methods=['POST', 'OPTIONS'])
 
 # Run the Falcon app
