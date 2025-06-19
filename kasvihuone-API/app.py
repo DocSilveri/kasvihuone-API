@@ -65,7 +65,7 @@ gpio_thread.daemon = True  # So that the thread dies when the main thread dies
 gpio_thread.start()
 
 # Create the Falcon app
-app = falcon.App(middleware=[cors])
+app = falcon.App(middleware=[cors.middleware])
 app.add_route('/API', GPIOControl(), methods=['POST', 'OPTIONS'])
 
 # Run the Falcon app
