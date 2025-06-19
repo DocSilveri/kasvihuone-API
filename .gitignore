@@ -1,0 +1,4 @@
+venv
+.vscode
+kasvihuone-API/__pycache__
+kasvihuone-API/gpiozero.py
