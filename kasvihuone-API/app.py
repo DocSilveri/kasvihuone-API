@@ -47,6 +47,12 @@ class GPIOControl:
         resp.set_header("Access-Control-Allow-Methods", "POST, OPTIONS")
         resp.set_header("Access-Control-Allow-Headers", "Content-Type")
         
+    def on_options(self, req, resp):
+        resp.set_header("Access-Control-Allow-Origin", "*")
+        resp.set_header("Access-Control-Allow-Methods", "POST, OPTIONS")
+        resp.set_header("Access-Control-Allow-Headers", "Content-Type")
+        resp.status = falcon.HTTP_OK
+        
 
 # Create a separate thread for GPIO logic
 gpio_thread = threading.Thread(target=gpio_thread)
