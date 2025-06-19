@@ -38,10 +38,10 @@ class GPIOControl:
                         gpio_queue.put("turn_on_led")
                     elif ledState == "off":
                         gpio_queue.put("turn_off_led")
-                    resp.body = f'Command "turn led at GPIO pin {pinNumber} {ledState}" received'    
+                    resp.text = f'Command "turn led at GPIO pin {pinNumber} {ledState}" received'    
             except Exception as e:
                 print(e)
-                resp.body = "Command not recognized"
+                resp.text = "Command not recognized"
         
 
 # Create a separate thread for GPIO logic
