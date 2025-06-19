@@ -1,25 +1,59 @@
 import falcon
-import json
-from .sensors import Waterlevel, Soilsensor
+#import RPi.GPIO as GPIO
+import gpiozero
+import threading
+from queue import Queue
 
-app = application = falcon.App()
+# Create a queue to send messages from the Falcon thread to the GPIO thread
+gpio_queue = Queue()
 
+led = gpiozero.LED(4)
 
-class Resource(object):
-    def on_get(self, req, resp):
-        w = Waterlevel()
-        soil1 = Soilsensor(1)
-        soil2 = Soilsensor(2)
+# GPIO logic
+def gpio_thread():
+    while True:
+        # Get a message from the queue
+        message = gpio_queue.get()
+        # Process the message
+        if message == 'turn_on_led':
+            led.on()
+        elif message == 'turn_off_led':
+            led.off()
+        # Mark the message as processed
+        gpio_queue.task_done()
+
+# Falcon API
+class GPIOControl:
+    def on_post(self, req, resp):
+        data = req.media
         
-        soil1idnumber, soil1id, soil1value = soil1.readSensor()
-        soil2idnumber, soil2id, soil2value = soil2.readSensor()
-        response = {"waterlevel": str(w.read()), 
-                    f"soilsensor {soil1id}": str(soil1value),
-                    f"soilsensor {soil2id}": str(soil2value),
-                    }
-        
-        resp.text = json.dumps(response, ensure_ascii=False)
+        if data['command']:
+            command = data['command']
+            commandList = command.split("_")
+            try:
+                if commandList [0] == "led":
+                    pinNumber = commandList[1]
+                    ledState = commandList[2]
+                    if ledState == "on":
+                        gpio_queue.put("turn_on_led")
+                    elif ledState == "off":
+                        gpio_queue.put("turn_off_led")
+                    resp.body = f'Command "turn led at GPIO pin {pinNumber} {ledState}" received'    
+            except:
+                resp.body = "Command not recognized"
         
 
+# Create a separate thread for GPIO logic
+gpio_thread = threading.Thread(target=gpio_thread)
+gpio_thread.daemon = True  # So that the thread dies when the main thread dies
+gpio_thread.start()
 
-app.add_route('/read', Resource())
+# Create the Falcon app
+app = falcon.App()
+app.add_route('/API', GPIOControl())
+
+# Run the Falcon app
+if __name__ == '__main__':
+    from wsgiref import simple_server
+    with simple_server.make_server('', 8000, app) as httpd:
+        httpd.serve_forever()
