@@ -1,8 +1,19 @@
+MCP3008_MOSI = 10
+MCP3008_MISO = 9
+MCP3008_CLK = 11
+MCP3008_CE0 = 8
+
+DUMMY_ACTIVE = True
 WATERLEVELSENSOR_ACTIVE = True
 SOILSENSORS_ACTIVE = True
-WATERLEVELSENSOR_PIN = 4
-SOILSENSOR_PINS = [3, 5, 6, 7]
-SOILSENSOR_IDS = ["tomato 1", 
-                  "tomato 2", 
-                  "pepper 1", 
-                  "pepper 2"]
+TEMPERATURESENSOR_ACTIVE = True
+
+UART_TX = 14
+UART_RX = 15
+
+TESTING_LED_PIN = 17
+
+SOILSENSOR_1_LABEL = "SoilSensor 1"
+SOILSENSOR_2_LABEL = "SoilSensor 2"
+SOILSENSOR_3_LABEL = "SoilSensor 3"
+SOILSENSOR_4_LABEL = "SoilSensor 4"
