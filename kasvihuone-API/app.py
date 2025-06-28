@@ -31,7 +31,7 @@ def correctSoilValue(value):
     resultValue = (value - SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD) / maxValue
     # return 1-resultValue
     print(value, resultValue)
-    return value
+    return resultValue
 
 
 def read_sensors():
@@ -55,6 +55,7 @@ def read_sensors():
 
     else:
         if SOILSENSORS_ACTIVE:
+            print("Fetching soil sensor data")
 
             soilSensorData = [
                 correctSoilValue(sensor0.value),
