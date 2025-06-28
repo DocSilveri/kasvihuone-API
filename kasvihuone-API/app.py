@@ -68,7 +68,7 @@ def read_sensors():
                 getSensorValue(sensor2),
                 getSensorValue(sensor3),
             ]
-
+            print(soilSensorData)
         else:
             soilSensorData = None
 
