@@ -19,6 +19,14 @@ if SOILSENSORS_ACTIVE:
     sensor1 = gpiozero.MCP3008(channel=1)
     sensor2 = gpiozero.MCP3008(channel=2)
     sensor3 = gpiozero.MCP3008(channel=3)
+    
+
+def getSensorValue(sensor):
+    valueList = list()
+    for i in range(SOILSENSOR_READINGS):
+        valueList.append(correctSoilValue(sensor.value))
+        sleep(SOILSENSOR_TIME_BETWEEN_READINGS)
+    return sum(valueList) / len(valueList)
 
 
 def correctSoilValue(value):
@@ -61,12 +69,13 @@ def read_sensors():
     else:
         if SOILSENSORS_ACTIVE:
             print("Fetching soil sensor data")
+            
 
             soilSensorData = [
-                correctSoilValue(sensor0.value),
-                correctSoilValue(sensor1.value),
-                correctSoilValue(sensor2.value),
-                correctSoilValue(sensor3.value),
+                getSensorValue(sensor0),
+                getSensorValue(sensor1),
+                getSensorValue(sensor2),
+                getSensorValue(sensor3),
             ]
 
         else:
