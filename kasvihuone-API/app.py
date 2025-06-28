@@ -29,7 +29,7 @@ def correctSoilValue(value):
     print(value, resultValue)
     
     if value > SOILSENSOR_DISCONNECTED_UPPER_TRESHOLD:
-        return 0
+        return 1
     if value < SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD:
         return 0
     return resultValue
