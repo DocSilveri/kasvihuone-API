@@ -27,16 +27,18 @@ def getSensorValue(sensor):
         valueList.append(correctSoilValue(sensor.value))
         sleep(SOILSENSOR_TIME_BETWEEN_READINGS)
         
-    print(valueList)
+    #print(valueList)
+    if False in valueList:
+        return False
     return sum(valueList) / len(valueList)
 
 
 def correctSoilValue(value):
     if value > SOILSENSOR_DISCONNECTED_UPPER_TRESHOLD:
-        print("Sensor head disconnected from PCB")
+        #print("Sensor head disconnected from PCB")
         return False
     if value < SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD:
-        print("Sensor disconnected")
+        #print("Sensor disconnected")
         return False
     
     return value
