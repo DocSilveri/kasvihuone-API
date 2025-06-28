@@ -19,6 +19,13 @@ if SOILSENSORS_ACTIVE:
     sensor1 = gpiozero.MCP3008(channel=1)
     sensor2 = gpiozero.MCP3008(channel=2)
     sensor3 = gpiozero.MCP3008(channel=3)
+    
+def correctSoilValue(value):
+                if value > 0.9:
+                    return 0
+                if value < 0.1:
+                    return 0
+                return value
 
 
 def read_sensors():
@@ -42,7 +49,8 @@ def read_sensors():
         
     else:
         if SOILSENSORS_ACTIVE:
-            soilSensorData = [sensor0.value, sensor1.value, sensor2.value, sensor3.value] 
+            
+            soilSensorData = [correctSoilValue(sensor0.value), correctSoilValue(sensor1.value), correctSoilValue(sensor2.value), correctSoilValue(sensor3.value)]
             
         else:
             soilSensorData = None
