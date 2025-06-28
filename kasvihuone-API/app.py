@@ -23,15 +23,16 @@ if SOILSENSORS_ACTIVE:
 
 def correctSoilValue(value):
     
-    maxValue = SOILSENSOR_DISCONNECTED_UPPER_TRESHOLD - SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD
-    resultValue = (value - SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD) / maxValue
+    maxValue = SOILSENSOR_UPPER_TRESHOLD - SOILSENSOR_LOWER_TRESHOLD
+    resultValue = 1-((value - SOILSENSOR_LOWER_TRESHOLD) / maxValue)
     # return 1-resultValue
     print(value, resultValue)
     
-    if value > SOILSENSOR_DISCONNECTED_UPPER_TRESHOLD:
-        return 1
-    if value < SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD:
+    if value > SOILSENSOR_DISCONNECTED_TRESHOLD:
+        return False
+    if value < SOILSENSOR_LOWER_TRESHOLD:
         return 0
+    
     return resultValue
 
 
