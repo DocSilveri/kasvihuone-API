@@ -14,6 +14,12 @@ gpio_queue = Queue()
 led = gpiozero.LED(TESTING_LED_PIN)
 cors = CORS(allow_all_origins=True, allow_all_methods=True, allow_all_headers=True)
 
+if SOILSENSORS_ACTIVE:
+    sensor0 = gpiozero.MCP3008(channel=0)
+    sensor1 = gpiozero.MCP3008(channel=1)
+    sensor2 = gpiozero.MCP3008(channel=2)
+    sensor3 = gpiozero.MCP3008(channel=3)
+
 
 def read_sensors():
     if DUMMY_ACTIVE:
@@ -34,6 +40,22 @@ def read_sensors():
             
         sleep(random() * 3)
         
+    else:
+        if SOILSENSORS_ACTIVE:
+            soilSensorData = [sensor0.value, sensor1.value, sensor2.value, sensor3.value] 
+            
+        else:
+            soilSensorData = None
+            
+        if WATERLEVELSENSOR_ACTIVE:
+            waterLevelData = 3
+        else:
+            waterLevelData = None
+            
+        if TEMPERATURESENSOR_ACTIVE:
+            temperatureData = 25
+        else:
+            temperatureData = None
    
    
    
