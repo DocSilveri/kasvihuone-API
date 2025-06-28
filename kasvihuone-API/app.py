@@ -30,6 +30,7 @@ def getSensorValue(sensor):
 
 
 def correctSoilValue(value):
+    print(value, SOILSENSOR_DISCONNECTED_TRESHOLD, SOILSENSOR_LOWER_TRESHOLD, SOILSENSOR_UPPER_TRESHOLD)
     if value > SOILSENSOR_DISCONNECTED_TRESHOLD:
         return False
     if value < SOILSENSOR_LOWER_TRESHOLD:
