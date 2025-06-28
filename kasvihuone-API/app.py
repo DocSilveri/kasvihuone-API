@@ -26,6 +26,8 @@ def getSensorValue(sensor):
     for i in range(SOILSENSOR_READINGS):
         valueList.append(correctSoilValue(sensor.value))
         sleep(SOILSENSOR_TIME_BETWEEN_READINGS)
+        
+    print(valueList)
     return sum(valueList) / len(valueList)
 
 
