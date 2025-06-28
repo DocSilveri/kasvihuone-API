@@ -30,6 +30,7 @@ def correctSoilValue(value):
     maxValue = SOILSENSOR_DISCONNECTED_UPPER_TRESHOLD - SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD
     resultValue = (value - SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD) / maxValue
     # return 1-resultValue
+    print(value, resultValue)
     return value
 
 
