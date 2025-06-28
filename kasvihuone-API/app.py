@@ -30,10 +30,11 @@ def getSensorValue(sensor):
 
 
 def correctSoilValue(value):
-    print(value, SOILSENSOR_DISCONNECTED_TRESHOLD, SOILSENSOR_LOWER_TRESHOLD, SOILSENSOR_UPPER_TRESHOLD)
-    if value > SOILSENSOR_DISCONNECTED_TRESHOLD:
+    if value > SOILSENSOR_DISCONNECTED_UPPER_TRESHOLD:
+        print("Sensor head disconnected from PCB")
         return False
-    if value < SOILSENSOR_LOWER_TRESHOLD:
+    if value < SOILSENSOR_DISCONNECTED_LOWER_TRESHOLD:
+        print("Sensor disconnected")
         return False
     
     return value
